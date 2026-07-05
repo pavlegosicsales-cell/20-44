@@ -1,4 +1,5 @@
 import ImgReveal from "@/components/ImgReveal";
+import LightRays from "@/components/ui/light-rays";
 
 const slike = [
   { src: "/images/club-1.jpg", alt: "Podijum pod plavim laserima i crvenim zavesama", span: "sm:col-span-2 sm:row-span-2" },
@@ -11,8 +12,24 @@ const slike = [
 
 export default function Gallery() {
   return (
-    <section id="galerija" className="border-t border-line bg-ink px-5 py-24 md:px-8 md:py-32">
-      <div className="mx-auto max-w-6xl">
+    <section id="galerija" className="relative overflow-hidden border-t border-line bg-ink px-5 py-24 md:px-8 md:py-32">
+      {/* WebGL svetlosni zraci (žuti) — pozadina sekcije; grid/ogrebotine (globalni, z-40+) ostaju iznad */}
+      <div className="pointer-events-none absolute inset-0 z-0">
+        <LightRays
+          raysOrigin="top-center"
+          raysColor="#FED11C"
+          raysSpeed={0.9}
+          lightSpread={0.7}
+          rayLength={2.4}
+          fadeDistance={1.1}
+          followMouse
+          mouseInfluence={0.08}
+          noiseAmount={0.06}
+          distortion={0.03}
+        />
+      </div>
+
+      <div className="relative z-10 mx-auto max-w-6xl">
         <div data-reveal className="mb-12 flex flex-col justify-between gap-4 md:flex-row md:items-end">
           <div>
             <p className="mb-4 font-mono text-xs uppercase tracking-widest text-accent">

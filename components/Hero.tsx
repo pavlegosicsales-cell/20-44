@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Badge from "@/components/Badge";
 import Scramble from "@/components/Scramble";
+import CtaButton from "@/components/CtaButton";
 import { ArrowDown } from "@/components/icons";
 import { site } from "@/data/site";
 
@@ -60,14 +61,19 @@ export default function Hero() {
         <p className="mt-8 max-w-md font-mono text-sm uppercase tracking-widest text-bone/80">
           {site.tagline}
         </p>
-        <a
-          href="#kuca"
-          className="mt-8 inline-flex items-center gap-3 bg-accent px-7 py-3.5 font-mono text-xs font-medium uppercase tracking-widest text-ink transition-transform hover:-translate-y-0.5"
-          aria-label="Istraži prostor 20/44"
-        >
-          Uđi u prostor
-          <ArrowDown className="h-4 w-4" />
-        </a>
+        <div className="mt-8">
+          <CtaButton
+            target="kuca"
+            variant="primary"
+            style="style2"
+            size="large"
+            icon={<ArrowDown className="h-4 w-4" />}
+            iconHover={{ x: 0, y: 3 }}
+            ariaLabel="Istraži prostor 20/44"
+          >
+            Uđi u prostor
+          </CtaButton>
+        </div>
       </div>
 
       {/* Donji red — scroll cue + deo grada */}

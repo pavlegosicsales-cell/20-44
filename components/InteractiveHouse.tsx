@@ -207,7 +207,7 @@ export default function InteractiveHouse() {
                     className="block w-full py-2 text-left"
                   >
                     <span
-                      className={`block font-black uppercase leading-none tracking-tight transition-colors ${
+                      className={`cursor-target inline-block font-black uppercase leading-none tracking-tight transition-colors ${
                         on ? "text-accent" : "text-bone"
                       }`}
                       style={{ fontSize: "clamp(1.05rem, 1.9vw, 1.55rem)" }}

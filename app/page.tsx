@@ -7,6 +7,7 @@ import Lokali from "@/components/Lokali";
 import Gallery from "@/components/Gallery";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
+import ProstorCursor from "@/components/ProstorCursor";
 
 export default function Home() {
   return (
@@ -29,6 +30,8 @@ export default function Home() {
         <Contact />
       </main>
       <Footer />
+      {/* Target cursor — aktivan samo dok je Prostor sekcija ispred (van clip-path sekcije) */}
+      <ProstorCursor />
     </>
   );
 }

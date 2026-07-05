@@ -1,5 +1,6 @@
 import Image from "next/image";
 import TornDivider from "@/components/TornDivider";
+import CtaButton from "@/components/CtaButton";
 import { ArrowUpRight } from "@/components/icons";
 
 const principi = [
@@ -77,13 +78,19 @@ export default function About() {
           </ul>
         </div>
 
-        <a
-          href="#lokali"
-          className="mt-16 inline-flex items-center gap-3 border-b border-accent pb-1 font-mono text-sm uppercase tracking-widest text-accent transition-opacity hover:opacity-70"
-        >
-          Pogledaj prostor
-          <ArrowUpRight className="h-4 w-4" />
-        </a>
+        <div className="mt-16">
+          <CtaButton
+            target="lokali"
+            variant="primary"
+            style="style2"
+            size="large"
+            icon={<ArrowUpRight className="h-4 w-4" />}
+            iconHover={{ x: 3, y: -3 }}
+            ariaLabel="Pogledaj lokale 20/44"
+          >
+            Pogledaj prostor
+          </CtaButton>
+        </div>
       </div>
     </section>
   );
