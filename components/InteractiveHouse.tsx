@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef, useLayoutEffect, useCallback } from "react";
+import { useState, useRef, useLayoutEffect, useEffect, useCallback } from "react";
 import { lokali } from "@/data/lokali";
 import DecryptedText from "@/components/ui/decrypted-text";
 import TextType from "@/components/ui/text-type";
@@ -26,6 +26,9 @@ type Line = { slug: string; x1: number; y1: number; x2: number; y2: number };
 
 export default function InteractiveHouse() {
   const [active, setActive] = useState<string | null>(null);
+  // Na touch uređajima (bez hovera) fasada radi u dva tapa: prvi tap oboji deo
+  // kuće + tekst lokala, drugi tap na isti deo skrola na sekciju.
+  const [isTouch, setIsTouch] = useState(false);
   const wrapRef = useRef<HTMLDivElement>(null);
   const buildingRef = useRef<HTMLDivElement>(null);
   const itemRefs = useRef<(HTMLLIElement | null)[]>([]);
@@ -73,10 +76,29 @@ export default function InteractiveHouse() {
     };
   }, [measure]);
 
+  useEffect(() => {
+    const mq = window.matchMedia("(hover: none)");
+    const update = () => setIsTouch(mq.matches);
+    update();
+    mq.addEventListener("change", update);
+    return () => mq.removeEventListener("change", update);
+  }, []);
+
   const goto = (slug: string) => {
     document
       .getElementById(`lokal-${slug}`)
       ?.scrollIntoView({ behavior: "smooth", block: "start" });
+  };
+
+  // Klik na deo fasade. Na touch-u: prvi tap samo obeleži (oboji) lokal, a
+  // ponovni tap na već obeleženi deo skrola na sekciju. Na desktopu (hover)
+  // je deo već obeležen hoverom, pa klik odmah skrola.
+  const handleHotspotClick = (slug: string) => {
+    if (isTouch && active !== slug) {
+      setActive(slug);
+      return;
+    }
+    goto(slug);
   };
 
   const activeLokal = active ? lokali.find((l) => l.slug === active) : null;
@@ -162,9 +184,9 @@ export default function InteractiveHouse() {
                     stroke="var(--color-accent)"
                     strokeOpacity={on ? 0.9 : 0}
                     strokeWidth={2.5}
-                    onMouseEnter={() => setActive(l.slug)}
-                    onMouseLeave={() => setActive(null)}
-                    onClick={() => goto(l.slug)}
+                    onMouseEnter={isTouch ? undefined : () => setActive(l.slug)}
+                    onMouseLeave={isTouch ? undefined : () => setActive(null)}
+                    onClick={() => handleHotspotClick(l.slug)}
                   />
                 );
               })}
