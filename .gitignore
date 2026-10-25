@@ -48,5 +48,4 @@ __pycache__/
 *.pyc
 /temporary screenshots/
 
-# Reference-only (bulky third-party inspo screenshots — not pushed)
-brand assets/inspo/
+!.env.example
