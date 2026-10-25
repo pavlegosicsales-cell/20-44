@@ -1,0 +1,31 @@
+{
+  // Pri otvaranju foldera: setup (remoti, pull, npm install), pa dev server na :3000.
+  // VS Code jednom pita "Allow automatic tasks" -> Allow.
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "20/44: setup",
+      "type": "shell",
+      "command": "node tools/setup.mjs",
+      "presentation": { "reveal": "always", "panel": "dedicated" },
+      "problemMatcher": []
+    },
+    {
+      "label": "20/44: dev",
+      "type": "shell",
+      "command": "npm run dev",
+      "dependsOn": "20/44: setup",
+      "isBackground": true,
+      "presentation": { "reveal": "always", "panel": "dedicated" },
+      "problemMatcher": {
+        "pattern": { "regexp": "^x^$" },
+        "background": {
+          "activatesOn": "always",
+          "beginsPattern": "next dev",
+          "endsPattern": "Ready in"
+        }
+      },
+      "runOptions": { "runOn": "folderOpen" }
+    }
+  ]
+}
