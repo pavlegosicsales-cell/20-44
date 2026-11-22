@@ -20,6 +20,7 @@ export type Lokal = {
   kratko: string;
   opis: string;
   slika: string;
+  strana?: string; // zasebna strana lokala, ako postoji
   hotspot: { points: string };
 };
 
@@ -99,13 +100,14 @@ export const lokali: Lokal[] = [
   {
     broj: "07",
     slug: "lounge-bar",
-    naziv: "Gore Lounge",
+    naziv: "GORE Lounge",
     sprat: "2. sprat",
     pozicija: "Desno",
-    kratko: "Lounge & pogled",
+    kratko: "Kafa, kokteli, muzika",
     opis:
-      "Najviša tačka kuće. Predah od podijuma, pogled i ton koji usporava — bez da se izlazi iz priče.",
-    slika: "/images/lokal-gore.jpg",
+      "Urbani lounge u kojem se susreću muzika, kultura i noćni život. Kafa tokom dana. Kokteli uveče. Muzika uvek.",
+    slika: "/images/gore/gore-lounge.jpg",
+    strana: "/gore",
     hotspot: { points: "628,18 1212,18 1212,150 628,150" },
   },
 ];

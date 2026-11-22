@@ -2,6 +2,7 @@ import ImgReveal from "@/components/ImgReveal";
 import DecryptedText from "@/components/ui/decrypted-text";
 import TextType from "@/components/ui/text-type";
 import { lokali } from "@/data/lokali";
+import { ArrowUpRight } from "@/components/icons";
 
 export default function Lokali() {
   return (
@@ -60,6 +61,15 @@ export default function Lokali() {
                   <p className="mt-5 max-w-md text-lg leading-relaxed text-ash">
                     {l.opis}
                   </p>
+                  {l.strana && (
+                    <a
+                      href={l.strana}
+                      className="mt-8 inline-flex items-center gap-2 border border-accent px-4 py-2 font-mono text-xs uppercase tracking-widest text-accent transition-colors hover:bg-accent hover:text-ink"
+                    >
+                      Uđi u {l.naziv}
+                      <ArrowUpRight className="h-3.5 w-3.5" />
+                    </a>
+                  )}
                 </div>
               </div>
             </article>

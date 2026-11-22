@@ -27,11 +27,11 @@ export const site = {
     { naziv: "RA", href: "https://ra.co/clubs" },
   ],
   nav: [
-    { naziv: "Prostor", href: "#kuca" },
-    { naziv: "Filozofija", href: "#o-nama" },
-    { naziv: "Lokali", href: "#lokali" },
-    { naziv: "Galerija", href: "#galerija" },
-    { naziv: "Kontakt", href: "#kontakt" },
+    { naziv: "Prostor", href: "/#kuca" },
+    { naziv: "Filozofija", href: "/#o-nama" },
+    { naziv: "Lokali", href: "/#lokali" },
+    { naziv: "Galerija", href: "/#galerija" },
+    { naziv: "Kontakt", href: "/#kontakt" },
   ],
   // Za marquee traku — muzički pravci kluba.
   zanrovi: [

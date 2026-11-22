@@ -38,7 +38,7 @@ export default function Nav() {
         >
           {/* Znak — zvanični logo (gornji levi ugao) */}
           <a
-            href="#top"
+            href="/#top"
             className="inline-flex items-center select-none"
             aria-label="20/44 — početak"
           >
@@ -56,7 +56,7 @@ export default function Nav() {
 
           <div className="flex items-center gap-3">
             <a
-              href="#lokali"
+              href="/#lokali"
               className="hidden sm:inline-flex items-center gap-2 border border-accent px-4 py-2 font-mono text-xs uppercase tracking-widest text-accent transition-colors hover:bg-accent hover:text-ink"
             >
               Prostor

@@ -15,6 +15,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://20-44-phi.vercel.app"),
   title: "20/44 — Underground klub elektronske muzike | Savamala, Beograd",
   description:
     "20/44 je kultni beogradski underground klub elektronske muzike u Savamali. Muzika je uvek ispred svega.",

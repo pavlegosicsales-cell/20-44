@@ -26,7 +26,15 @@ Next.js 16 (App Router, TS) + Tailwind v4 + React 19; gsap, framer-motion, ogl.
 - `CONTEXT/` brand profil + `Design-System.md`; `workflows/build_frontend_page.md`
 
 **7 lokala:** Main klub, Bar 44, Pizzeria (prizemlje); Vukosava bar, Galerija 20/44 (1. sprat);
-Studio Štajga, Lounge bar (2. sprat). Bašta i Potpalublje su izbačeni.
+Studio Štajga, GORE Lounge (2. sprat). Bašta i Potpalublje su izbačeni.
+
+**GORE Lounge** (lokal 07, slug `lounge-bar`) ima zasebnu stranu `/gore` (`app/gore/page.tsx`,
+podaci `data/gore.ts`). Tekst je klijentov (stigao 22.11.2026, postoji i engleska verzija), ne
+prepravljati ga. Fotke: originali u `brand assets/gore/`, web verzije u `public/images/gore/`.
+Znak lokala (`components/GoreMark.tsx`): „GORE" latinicom, ispod „ГОРЕ" ćirilicom okrenuto za 180°,
+kao svetleći znak u prostoru. Archivo nema ćirilicu, pa je Г napravljeno od preslikanog „L".
+Lokal u `data/lokali.ts` sa poljem `strana` dobija dugme ka svojoj strani.
+Nav linkovi su `/#sekcija` da bi radili i sa podstrana.
 
 ## Brend i dizajn
 
