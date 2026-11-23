@@ -459,6 +459,10 @@
   background-image: repeating-linear-gradient(to right, var(--color-ink) 0 1.5px, transparent 1.5px 6px);
   opacity: 0.55;
 }
+.tick-ruler.is-accent {
+  background-image: repeating-linear-gradient(to right, var(--color-accent) 0 1.5px, transparent 1.5px 6px);
+  opacity: 0.8;
+}
 /* WHP rule-bar-repeat-right: merni stub uz desnu ivicu panela sa fotografijom */
 .rule-bar {
   background-image:
