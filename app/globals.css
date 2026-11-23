@@ -230,6 +230,16 @@
     transparent 8px
   );
 }
+/* Bela, deblja varijanta za footer (WHP white-hatch.svg, 40px traka) */
+.hatch-bone {
+  background-image: repeating-linear-gradient(
+    -45deg,
+    var(--color-bone) 0,
+    var(--color-bone) 2.5px,
+    transparent 2.5px,
+    transparent 12px
+  );
+}
 /* Tamna varijanta za žuti meni (WHP dark-hatch ispod liste) */
 .hatch-ink {
   background-image: repeating-linear-gradient(

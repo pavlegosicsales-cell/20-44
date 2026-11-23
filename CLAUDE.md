@@ -44,8 +44,8 @@ WHP kartice (svetle, `.tex-noise`, oznaka od ivice kartice), cross-line ispod na
 „view-all" link sa linijom do ivice ekrana.
 
 **Nav i footer su po WHP-u na celom sajtu** (23.11.2026): ikonica od tačkica koja se pretvara u X,
-žuti panel zdesna sa stavkama koje ulaze redom; footer uvučen 12,5 % sa hatch trakom koja raste,
-znak levo i linkovi sa uglovima desno. `.tex-noise` = fino zrno (alfa 0.22/-0.05, izmereno ~6 % tamnjenja);
+žuti panel zdesna sa stavkama koje ulaze redom; footer uvučen 12,5 % sa belom hatch trakom koja raste,
+znak levo (`components/FooterEmblem.tsx`, SVG sa `textLength` da svi redovi budu iste širine, kao WHP footer-emblems.svg) i linkovi u bold sans fontu sa uglovima desno. `.tex-noise` = fino zrno (alfa 0.22/-0.05, izmereno ~6 % tamnjenja);
 jače zrno je prljalo žutu.
 
 **Izuzetak od „sharp" pravila:** strelice i tačkice karusela i krugovi društvenih mreža su okrugli
