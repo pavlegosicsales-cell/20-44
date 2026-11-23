@@ -116,3 +116,13 @@ Odstupanja: Archivo umesto Ceraph serifa (klijentov font), žuta umesto lime, be
 | `menu-animatics` (GSAP: 8 tačaka nestaje, centar → „+", rotacija 45°) | `MenuDots` — CSS tranzicije, scaleX/scaleY 6.5, rotate 45° |
 | `.main-menu` 500px zdesna, `menuSlide` 550ms, `listMenuSlide` 375+50ms, `slideGrow` hatch | `Nav` panel + `.menu-open` animacije |
 | `footer .lower-footer` (12.5 % uvučen, `fslideGrow` hatch 1200ms, emblem, `square-edge` uglovi, dotted linkovi, krugovi mreža) | `Footer` |
+
+---
+
+## Početna (23.11.2026) — WHP homepage sekcije → 20/44 početna
+
+| WHP (izmereno na 1440) | 20/44 |
+|---|---|
+| `.cta-panel`: padding 240/120, `.cta-bg` fotka opacity .6 (scale 1.1→1, 1800ms), `.cta-bg-wrap:after` rule-bar 30px desno; `.cta-content` 50 % od 12.5 %, lime .9 + noise, padding 40/30, `base-vline-repeater` 180×15 dole levo; telefon 87.5 % od ivice | Filozofija: dva panela (philosophy.jpg, club-3.jpg), `-mt-5` između (WHP `.cta-panel+.cta-panel`) |
+| `.news-block`: `.news-title` 31.25 % desno poravnat (60.8px), `.news-listing` 68.75 % sa `vertical-dash` opacity .3; `.side-feature` 2.75:1, slika 36.36 % (mask to left, .75 @50 %), tekst od 27.27 %; `.full-background` slika preko svega (mask .3 @50 %), tekst padding 10 % | Lokali: „Lokali + / spratovi", 7 članaka naizmenično; maska jača (.8 / .6) jer su fotke lokala bitne |
+| `.hero-text-title` „Under construction since 2006." | (nije preneto) |

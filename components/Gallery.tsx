@@ -1,73 +1,49 @@
 import ImgReveal from "@/components/ImgReveal";
-import LightRays from "@/components/ui/light-rays";
-import DecryptedText from "@/components/ui/decrypted-text";
+import Carousel from "@/components/Carousel";
 import TextType from "@/components/ui/text-type";
+import { SectionalTitle, ViewAll } from "@/components/whp";
+import { site } from "@/data/site";
+
+/*
+  Galerija po WHP .image-carousel: fotke u boji, sledeća viri desno, bočne okrugle strelice,
+  tačkice ispod; naslov sa cross-line detaljem i "view all" link sa linijom do ivice.
+*/
 
 const slike = [
-  { src: "/images/club-1.jpg", alt: "Podijum pod plavim laserima i crvenim zavesama", span: "sm:col-span-2 sm:row-span-2" },
-  { src: "/images/club-6.jpg", alt: "DJ-evi i publika ispred zida sa plakatima", span: "" },
-  { src: "/images/club-2.jpg", alt: "Pogled odozgo na DJ pult i publiku", span: "" },
-  { src: "/images/club-7.jpg", alt: "DJ za pultom u pokretu, topla svetla", span: "" },
-  { src: "/images/club-5.jpg", alt: "Portret DJ-a ispred betonskog zida", span: "" },
-  { src: "/images/club-4.jpg", alt: "DJ sa kačketom za pultom, tragovi svetla", span: "sm:col-span-2" },
+  { src: "/images/club-1.jpg", alt: "Podijum pod plavim laserima i crvenim zavesama", w: 1836, h: 1072 },
+  { src: "/images/club-6.jpg", alt: "DJ-evi i publika ispred zida sa plakatima", w: 1170, h: 780 },
+  { src: "/images/club-2.jpg", alt: "Pogled odozgo na DJ pult i publiku", w: 1170, h: 1560 },
+  { src: "/images/club-7.jpg", alt: "DJ za pultom u pokretu, topla svetla", w: 1170, h: 782 },
+  { src: "/images/club-5.jpg", alt: "Portret DJ-a ispred betonskog zida", w: 1170, h: 1560 },
+  { src: "/images/club-4.jpg", alt: "DJ sa kačketom za pultom, tragovi svetla", w: 1170, h: 1560 },
 ];
+
+const instagram = site.socials.find((s) => s.naziv === "Instagram")!.href;
 
 export default function Gallery() {
   return (
-    <section id="galerija" className="relative overflow-hidden border-t border-line bg-ink px-5 py-24 md:px-8 md:py-32">
-      {/* WebGL svetlosni zraci (žuti) — pozadina sekcije; grid/ogrebotine (globalni, z-40+) ostaju iznad */}
-      <div className="pointer-events-none absolute inset-0 z-0">
-        <LightRays
-          raysOrigin="top-center"
-          raysColor="#FED11C"
-          raysSpeed={0.9}
-          lightSpread={0.7}
-          rayLength={2.4}
-          fadeDistance={1.1}
-          followMouse
-          mouseInfluence={0.08}
-          noiseAmount={0.06}
-          distortion={0.03}
-        />
-      </div>
-
-      <div className="relative z-10 mx-auto max-w-6xl">
-        <div data-reveal className="mb-12 flex flex-col justify-between gap-4 md:flex-row md:items-end">
-          <div>
-            <p className="mb-4 font-mono text-xs uppercase tracking-widest text-accent">
-              <TextType text="[ Galerija ]" as="span" loop={false} startOnVisible typingSpeed={55} cursorCharacter="_" />
-            </p>
-            <h2
-              className="text-tex font-black uppercase leading-[0.92] tracking-tighter"
-              style={{ fontSize: "clamp(2rem, 5vw, 4rem)" }}
-            >
-              <DecryptedText text="Fotografija umesto reklame." animateOn="view" sequential speed={34} />
-            </h2>
-          </div>
-          <p className="max-w-xs font-mono text-xs uppercase leading-relaxed tracking-widest text-ash">
-            Prirodni momenti sa podijuma. Pređi kursorom za boju.
+    <section id="galerija" className="relative overflow-x-clip border-t border-line bg-ink px-5 py-20 md:px-8 md:py-28">
+      <div className="mx-auto max-w-6xl">
+        <div data-reveal className="mb-10">
+          <p className="mb-5 font-mono text-xs uppercase tracking-widest text-accent">
+            <TextType text="[ Galerija ]" as="span" loop={false} startOnVisible typingSpeed={55} cursorCharacter="_" />
           </p>
+          <SectionalTitle jak="Fotografija" slab="umesto reklame" />
         </div>
-
-        <div data-reveal-group className="grid auto-rows-[220px] grid-cols-1 gap-3 sm:grid-cols-3 sm:auto-rows-[240px]">
-          {slike.map((s, i) => (
+        <Carousel label="Galerija 20/44" arrowsSide>
+          {slike.map((s) => (
             <figure
-              key={i}
-              className={`group relative overflow-hidden border border-line ${s.span}`}
+              key={s.src}
+              className="relative h-[min(68vh,640px)] overflow-hidden border border-line"
+              style={{ aspectRatio: `${s.w} / ${s.h}`, maxWidth: "85vw" }}
             >
-              <ImgReveal
-                src={s.src}
-                alt={s.alt}
-                fill
-                sizes="(max-width: 640px) 100vw, 33vw"
-                className="reveal-color object-cover group-hover:scale-[1.04]"
-              />
-              <figcaption className="absolute bottom-0 left-0 bg-ink/80 px-2.5 py-1 font-mono text-[10px] uppercase tracking-widest text-ash opacity-0 transition-opacity group-hover:opacity-100">
-                20/44 — {String(i + 1).padStart(2, "0")}
-              </figcaption>
+              <ImgReveal src={s.src} alt={s.alt} fill sizes="(max-width: 640px) 85vw, 1100px" className="object-cover" />
             </figure>
           ))}
-        </div>
+        </Carousel>
+        <ViewAll href={instagram} external>
+          Još sa podijuma na Instagramu
+        </ViewAll>
       </div>
     </section>
   );

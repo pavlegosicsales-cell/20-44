@@ -6,6 +6,7 @@ import GoreMark from "@/components/GoreMark";
 import ImgReveal from "@/components/ImgReveal";
 import Carousel from "@/components/Carousel";
 import BgLetters from "@/components/BgLetters";
+import { SectionalTitle, ViewAll } from "@/components/whp";
 import TextType from "@/components/ui/text-type";
 import { ArrowUpRight } from "@/components/icons";
 import { gore } from "@/data/gore";
@@ -30,19 +31,6 @@ export const metadata: Metadata = {
     images: [gore.poster.src],
   },
 };
-
-/* WHP .sectional-title: prvi red bold, drugi lakši. Ispod je cross-line-detail: kratka
-   horizontalna linija koja počinje levo od naslova i vertikalna koja se spušta niz gutter. */
-function SectionalTitle({ jak, slab }: { jak: string; slab: string }) {
-  return (
-    <h2 className="relative pb-5 font-black uppercase leading-[0.95] tracking-tighter" style={{ fontSize: "clamp(2rem, 4.2vw, 3.25rem)" }}>
-      <span className="text-tex block">{jak}</span>
-      <span className="block font-medium text-bone/80">{slab}</span>
-      <span aria-hidden="true" className="absolute -left-10 bottom-0 h-px w-36 bg-bone/40" />
-      <span aria-hidden="true" className="absolute -left-4 top-[calc(100%-1.75rem)] h-[26rem] w-px bg-bone/25 md:-left-5" />
-    </h2>
-  );
-}
 
 /* WHP title-detail-base: duga linija ispod naslova, vertikalna crta na ivici kolone (gore bleđa)
    i polukrug "D" na spoju. */
@@ -220,16 +208,7 @@ export default function GorePage() {
                 </a>
               ))}
             </Carousel>
-            {/* WHP .view-all: link sa linijom koja ide do desne ivice ekrana */}
-            <div className="mt-8 flex justify-end">
-              <a
-                href="/#kuca"
-                className="relative pb-3 pr-5 font-mono text-xs uppercase tracking-widest text-accent/90 transition-colors hover:text-accent md:pr-8"
-              >
-                Cela kuća na mapi
-                <span aria-hidden="true" className="absolute bottom-0 left-0 h-px w-[75vw] bg-accent/30" />
-              </a>
-            </div>
+            <ViewAll href="/#kuca">Cela kuća na mapi</ViewAll>
           </div>
         </section>
       </main>

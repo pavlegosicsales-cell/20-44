@@ -48,6 +48,12 @@ WHP kartice (svetle, `.tex-noise`, oznaka od ivice kartice), cross-line ispod na
 znak levo (`components/FooterEmblem.tsx`, SVG sa `textLength` da svi redovi budu iste širine, kao WHP footer-emblems.svg) i linkovi u bold sans fontu sa uglovima desno. `.tex-noise` = fino zrno (alfa 0.22/-0.05, izmereno ~6 % tamnjenja);
 jače zrno je prljalo žutu.
 
+**Početna po WHP početnoj (23.11.2026):** Filozofija = dva WHP `.cta-panel` (fotka na 60 %, merni stub desno,
+žuti panel sa zrnom 50 % širine od 12,5 %, tamno dugme, niz crtica na dnu); Lokali = WHP „News + updates"
+(naslov levo 31,25 %, lista 68,75 % sa isprekidanom linijom i nišanima, članci naizmenično side-feature /
+full-background, `id="lokal-<slug>"` ostaje); Galerija = WHP image karusel u boji + „view all" ka Instagramu.
+Zajednički delovi su u `components/whp.tsx` (SectionalTitle, ViewAll, Crosshair).
+
 **Izuzetak od „sharp" pravila:** strelice i tačkice karusela i krugovi društvenih mreža su okrugli
 kao na WHP-u (Pavle, 23.11.2026). Sve ostalo ostaje bez zaobljenja. Serif i WHP teget pozadina su odbijeni.
 Pravilo: strana „u stilu" reference = prvo site-teardown reference (postojeći su u `research/`), pa gradnja.
