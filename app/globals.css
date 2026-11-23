@@ -397,6 +397,44 @@
   }
 }
 
+/* --- Podstrana lokala (WHP event panel) --- */
+/* Poster uklizi sleva (WHP: img.lazy.pending translateX(-25%) → 0, 900ms). */
+.img-load.img-in.poster-slide {
+  animation: poster-slide 0.9s cubic-bezier(0.72, 0, 0.19, 1);
+}
+@keyframes poster-slide {
+  from {
+    opacity: 0;
+    transform: translateX(-25%);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+/* Žuta oznaka koja se produžava ulevo do ivice ekrana (WHP span.date:after 100vw).
+   isolate drži ::after iznad pozadina sekcija; poster (z-10) ga prekriva na desktopu. */
+.tag-bleed {
+  position: relative;
+  isolation: isolate;
+}
+.tag-bleed::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: -1;
+  width: 100vw;
+  height: 100%;
+  background: inherit;
+}
+.no-scrollbar {
+  scrollbar-width: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
 /* --- Multi-speed parallax na globalnim overlay slojevima --- */
 /* Malo veći od viewporta da drift ne otkrije ivice. */
 .fx-dust,
@@ -458,7 +496,8 @@
     animation: none;
   }
   .img-load,
-  .img-load.img-in {
+  .img-load.img-in,
+  .img-load.img-in.poster-slide {
     opacity: 1;
     animation: none;
   }

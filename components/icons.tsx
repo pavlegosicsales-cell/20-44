@@ -32,6 +32,14 @@ export function ArrowUpRight({ className = "h-4 w-4" }: IconProps) {
   );
 }
 
+export function ArrowRight({ className = "h-4 w-4" }: IconProps) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" className={className} aria-hidden="true">
+      <path d="M5 12h14M19 12l-6-6M19 12l-6 6" stroke="currentColor" strokeWidth="1.6" strokeLinecap="square" />
+    </svg>
+  );
+}
+
 export function ArrowDown({ className = "h-4 w-4" }: IconProps) {
   return (
     <svg viewBox="0 0 24 24" fill="none" className={className} aria-hidden="true">

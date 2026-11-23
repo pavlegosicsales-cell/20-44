@@ -34,6 +34,12 @@ prepravljati ga. Fotke: originali u `brand assets/gore/`, web verzije u `public/
 Znak lokala (`components/GoreMark.tsx`): „GORE" latinicom, ispod „ГОРЕ" ćirilicom okrenuto za 180°,
 kao svetleći znak u prostoru. Archivo nema ćirilicu, pa je Г napravljeno od preslikanog „L".
 Lokal u `data/lokali.ts` sa poljem `strana` dobija dugme ka svojoj strani.
+Raspored `/gore` je po WHP event strani (teardown: `research/2026-11-23-thewarehouseproject-podstrane-teardown.md`):
+poster uz levu ivicu + detalji (žuta `.tag-bleed` oznaka do ivice ekrana, teksturisan naslov, linija sa čvorom,
+mesto/vreme, dugmad, tekst) → karusel fotki → ritam dana → karusel „Ostali lokali". `components/Carousel.tsx`
+je WHP Slick bez Slicka (scroll-snap, strelice, tačkice, prevlačenje mišem, neaktivni slajdovi na 20 %).
+Isti šablon važi za buduće strane drugih lokala.
+Pravilo: strana „u stilu" reference = prvo site-teardown reference (postojeći su u `research/`), pa gradnja.
 Nav linkovi su `/#sekcija` da bi radili i sa podstrana.
 
 ## Brend i dizajn

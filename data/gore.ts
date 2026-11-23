@@ -1,8 +1,12 @@
 /*
-  GORE Lounge — lokal 07 (2. sprat, potkrovlje). Zasebna strana /gore.
+  GORE Lounge — lokal 07 (2. sprat, potkrovlje). Zasebna strana /gore, raspored po WHP
+  event strani (vidi research/2026-11-23-thewarehouseproject-podstrane-teardown.md).
   Copy je klijentov (dostavljen 22.11.2026), ne menjati sadržaj bez njih.
   Znak lokala: "GORE" latinicom, ispod "ГОРЕ" ćirilicom okrenuto za 180°.
 */
+
+const P = { w: 1336, h: 2000 }; // uspravne fotke
+const L = { w: 2000, h: 1336 }; // položene fotke
 
 export const gore = {
   naziv: "GORE Lounge",
@@ -15,6 +19,9 @@ export const gore = {
     "Bilo da svraćate na kafu, družite se uz piće nakon posla ili provodite veče otkrivajući nove muzičke zvuke, GORE je mesto za povezivanje, opuštanje i doživljaj Beograda iz drugačije perspektive.",
   ],
   zanrovi: ["House", "Deep House", "Disco", "Electronic"],
+  // WHP .venue / .time — mesto i ritam umesto datuma i satnice.
+  mesto: "Karađorđeva 44 · Savamala",
+  vreme: "Kafa tokom dana · Kokteli uveče",
   // Ritam dana — iz završne rečenice klijentovog teksta.
   ritam: [
     { kad: "Dan", sta: "Kafa" },
@@ -22,14 +29,19 @@ export const gore = {
     { kad: "Uvek", sta: "Muzika" },
   ],
   zavrsna: "Kafa tokom dana. Kokteli uveče. Muzika uvek.",
-  hero: { src: "/images/gore/gore-pult.jpg", alt: "DJ pult u potkrovlju GORE Lounge-a, bar i sofe u pozadini" },
+  // Poster (WHP .poster-artwork, kvadrat): svetleći znak iznad publike.
+  poster: {
+    src: "/images/gore/gore-znak-plavi.jpg",
+    alt: "Svetleći GORE znak iznad publike sa rukama u vazduhu",
+    pozicija: "50% 30%",
+  },
   slike: [
-    { src: "/images/gore/gore-lounge.jpg", alt: "Chesterfield sofe pod gredama, toplo svetlo i slika na zidu", span: "sm:col-span-2 sm:row-span-2" },
-    { src: "/images/gore/gore-bar.jpg", alt: "Barske stolice uz šank, plavo i crveno svetlo", span: "sm:row-span-2" },
-    { src: "/images/gore/gore-znak-crveni.jpg", alt: "Svetleći GORE znak ispred projekcije, publika u mraku", span: "sm:row-span-2" },
-    { src: "/images/gore/gore-dj.jpg", alt: "DJ peva iza pulta, psihodelične projekcije iznad", span: "sm:row-span-2" },
-    { src: "/images/gore/gore-publika.jpg", alt: "Puno potkrovlje, ljudi između drvenih greda", span: "sm:row-span-2" },
-    { src: "/images/gore/gore-sofa.jpg", alt: "Crvena sofa, slika na zidu i sveća na stolu", span: "sm:row-span-2" },
-    { src: "/images/gore/gore-znak-plavi.jpg", alt: "Ruke u vazduhu ispod GORE znaka", span: "sm:row-span-2" },
+    { src: "/images/gore/gore-lounge.jpg", alt: "Chesterfield sofe pod gredama, toplo svetlo i slika na zidu", ...L },
+    { src: "/images/gore/gore-bar.jpg", alt: "Barske stolice uz šank, plavo i crveno svetlo", ...P },
+    { src: "/images/gore/gore-dj.jpg", alt: "DJ peva iza pulta, psihodelične projekcije iznad", ...P },
+    { src: "/images/gore/gore-publika.jpg", alt: "Puno potkrovlje, ljudi između drvenih greda", ...P },
+    { src: "/images/gore/gore-pult.jpg", alt: "DJ pult u potkrovlju, bar i sofe u pozadini", ...L },
+    { src: "/images/gore/gore-znak-crveni.jpg", alt: "Svetleći GORE znak ispred projekcije, publika u mraku", ...P },
+    { src: "/images/gore/gore-sofa.jpg", alt: "Crvena sofa, slika na zidu i sveća na stolu", ...P },
   ],
 } as const;
