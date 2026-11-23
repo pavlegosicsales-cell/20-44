@@ -6,7 +6,8 @@ import { ArrowRight } from "@/components/icons";
 /*
   Karusel po WHP-u (Slick: dots, arrows, draggable, infinite:false, 600ms), bez Slicka:
   native scroll-snap (swipe na telefonu besplatno) + strelice, tačkice i prevlačenje mišem.
-  Slajd koji nije ceo u kadru je na 20 % opacitija; scroller ide do desne ivice ekrana,
+  Slajd koji je manje od 60 % u kadru je na 45 % opacitija (WHP ima 20 %, ali su naše fotke
+  različite širine pa su se previše gubile); scroller ide do desne ivice ekrana,
   pa sledeći slajd "viri" (WHP: .slick-list { overflow: visible }).
   Strelice i tačkice su okrugle kao na WHP-u (izuzetak od "sharp" pravila, odluka 23.11.2026).
   `arrowsSide`: strelice desno na sredini visine, jedna iznad druge (WHP .image-carousel);
@@ -26,10 +27,24 @@ export default function Carousel({
   const slides = Children.toArray(children);
   const scroller = useRef<HTMLDivElement>(null);
   const [visible, setVisible] = useState<boolean[]>(() => slides.map((_, i) => i === 0));
+  const [current, setCurrent] = useState(0);
   const [edge, setEdge] = useState({ start: true, end: false });
   const drag = useRef({ down: false, moved: false, x: 0, left: 0 });
+  const frame = useRef(0);
 
-  // Koji slajdovi su (skoro) ceo u kadru.
+  // Položaj slajda unutar scrollera (ne zavisi od offsetParent-a).
+  const posOf = (el: HTMLElement, item: HTMLElement) =>
+    item.getBoundingClientRect().left - el.getBoundingClientRect().left + el.scrollLeft;
+  const nearestIndex = (el: HTMLElement) => {
+    const items = Array.from(el.children) as HTMLElement[];
+    return items.reduce(
+      (best, item, i) =>
+        Math.abs(posOf(el, item) - el.scrollLeft) < Math.abs(posOf(el, items[best]) - el.scrollLeft) ? i : best,
+      0
+    );
+  };
+
+  // Slajd je "aktivan" (pun opacitet) kad je bar 60 % u kadru.
   useEffect(() => {
     const root = scroller.current;
     if (!root) return;
@@ -38,40 +53,58 @@ export default function Carousel({
       (entries) => {
         setVisible((prev) => {
           const next = [...prev];
-          for (const e of entries) next[items.indexOf(e.target as HTMLElement)] = e.intersectionRatio >= 0.9;
+          for (const e of entries) next[items.indexOf(e.target as HTMLElement)] = e.intersectionRatio >= 0.6;
           return next;
         });
       },
-      { root, threshold: [0, 0.9, 1] }
+      { root, threshold: [0, 0.6, 1] }
     );
     items.forEach((el) => io.observe(el));
     return () => io.disconnect();
   }, [slides.length]);
 
-  const updateEdges = useCallback(() => {
+  const sync = useCallback(() => {
     const el = scroller.current;
     if (!el) return;
-    setEdge({ start: el.scrollLeft <= 2, end: el.scrollLeft + el.clientWidth >= el.scrollWidth - 2 });
+    setCurrent(nearestIndex(el));
+    setEdge({ start: el.scrollLeft <= 2, end: el.scrollLeft >= el.scrollWidth - el.clientWidth - 2 });
   }, []);
 
+  // Prostor iza poslednjeg slajda, da i on može da stane uz levu ivicu
+  // (bez toga se kraj zaustavlja "između" dve slike).
   useEffect(() => {
-    updateEdges();
-    window.addEventListener("resize", updateEdges);
-    return () => window.removeEventListener("resize", updateEdges);
-  }, [updateEdges]);
+    const el = scroller.current;
+    if (!el) return;
+    const fit = () => {
+      const last = el.lastElementChild as HTMLElement | null;
+      if (last) el.style.paddingRight = `${Math.max(0, el.clientWidth - last.offsetWidth)}px`;
+      sync();
+    };
+    fit();
+    const ro = new ResizeObserver(fit);
+    ro.observe(el);
+    if (el.lastElementChild) ro.observe(el.lastElementChild);
+    return () => ro.disconnect();
+  }, [slides.length, sync]);
+
+  const onScroll = () => {
+    cancelAnimationFrame(frame.current);
+    frame.current = requestAnimationFrame(sync);
+  };
 
   const behavior = (): ScrollBehavior =>
     window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth";
 
   const goTo = (i: number) => {
     const el = scroller.current;
-    const item = el?.children[i] as HTMLElement | undefined;
-    if (el && item) el.scrollTo({ left: item.offsetLeft - el.offsetLeft, behavior: behavior() });
+    const item = el?.children[Math.max(0, Math.min(i, slides.length - 1))] as HTMLElement | undefined;
+    if (el && item) el.scrollTo({ left: posOf(el, item), behavior: behavior() });
   };
 
+  // Strelica ide tačno na susedni slajd.
   const step = (dir: 1 | -1) => {
     const el = scroller.current;
-    if (el) el.scrollBy({ left: dir * el.clientWidth * 0.8, behavior: behavior() });
+    if (el) goTo(nearestIndex(el) + dir);
   };
 
   // Prevlačenje mišem (dodir koristi native scroll). Snap se gasi dok se vuče.
@@ -97,12 +130,7 @@ export default function Carousel({
     drag.current.down = false;
     if (drag.current.moved) {
       // Vrati snap i dovedi najbliži slajd na početak.
-      const items = Array.from(el.children) as HTMLElement[];
-      const nearest = items.reduce((best, item, i) =>
-        Math.abs(item.offsetLeft - el.offsetLeft - el.scrollLeft) <
-        Math.abs(items[best].offsetLeft - el.offsetLeft - el.scrollLeft)
-          ? i
-          : best, 0);
+      const nearest = nearestIndex(el);
       el.style.scrollSnapType = "";
       goTo(nearest);
       // Klik (ako ga browser pošalje) stiže pre ovog tajmera; posle njega klikovi opet rade.
@@ -117,7 +145,7 @@ export default function Carousel({
     }
   };
 
-  const first = Math.max(0, visible.indexOf(true));
+  const first = current;
   const arrow =
     "flex h-9 w-9 items-center justify-center rounded-full border-2 border-accent bg-ink/80 text-accent transition-[opacity,background-color,color] duration-300 hover:bg-accent hover:text-ink disabled:pointer-events-none disabled:opacity-20";
   const arrows = (
@@ -136,7 +164,7 @@ export default function Carousel({
       <div className="relative">
         <div
           ref={scroller}
-          onScroll={updateEdges}
+          onScroll={onScroll}
           onPointerDown={onPointerDown}
           onPointerMove={onPointerMove}
           onPointerUp={endDrag}
@@ -157,7 +185,7 @@ export default function Carousel({
               aria-roledescription="slide"
               aria-label={`${i + 1} / ${slides.length}`}
               className={`shrink-0 snap-start transition-opacity duration-[600ms] ease-out ${
-                visible[i] ? "opacity-100" : "opacity-20"
+                visible[i] ? "opacity-100" : "opacity-[0.45]"
               } ${slideClassName}`}
             >
               {slide}
