@@ -48,14 +48,15 @@ function SectionalTitle({ jak, slab }: { jak: string; slab: string }) {
    i polukrug "D" na spoju. */
 function TitleDetail() {
   return (
-    <div aria-hidden="true" className="relative mt-6 h-px w-3/4 max-w-md bg-bone/40">
+    <div aria-hidden="true" className="relative h-px w-3/4 max-w-md bg-bone/40">
       <span className="absolute -top-16 left-0 h-[7.75rem] w-px bg-gradient-to-b from-bone/10 via-bone/45 to-bone/45" />
       <span className="absolute left-0 top-1/2 h-3 w-1.5 -translate-y-1/2 rounded-r-full border border-l-0 border-bone/70" />
     </div>
   );
 }
 
-const btn = "inline-flex items-center gap-2 border-2 px-5 py-3.5 font-mono text-xs uppercase tracking-widest transition-colors duration-300";
+/* WHP .bordered-link: 2px obrub, padding 15/20, 16px bold sans uppercase */
+const btn = "inline-flex items-center gap-2 border-2 px-5 py-[14px] text-base font-bold uppercase leading-none transition-colors duration-300";
 
 export default function GorePage() {
   return (
@@ -72,7 +73,7 @@ export default function GorePage() {
         {/* Event panel — poster uz levu ivicu, detalji desno */}
         <section className="relative z-10 mx-auto max-w-[1600px] pt-20 md:pt-24">
           <div className="flex flex-col lg:flex-row lg:items-start">
-            <figure className="relative z-10 aspect-square w-full overflow-hidden lg:sticky lg:top-20 lg:w-1/2">
+            <figure className="relative z-10 aspect-square w-full overflow-hidden lg:w-1/2">
               <ImgReveal
                 src={gore.poster.src}
                 alt={gore.poster.alt}
@@ -84,23 +85,34 @@ export default function GorePage() {
               />
             </figure>
 
-            <div className="w-full pb-16 pt-8 lg:w-1/2 lg:pt-10">
-              <p className="tag-bleed tex-noise inline-block bg-accent py-2.5 pl-5 pr-4 font-mono text-sm uppercase tracking-widest text-ink md:pl-8">
+            {/* Detalji — mere sa WHP .event-details (1440px): padding-top 30, koraci od 30px,
+                oznaka 17.6px, naslov 48px (naš znak u dva reda), mesto/vreme 17.6px, dugme 16px, tekst 14.4px */}
+            <div className="w-full pb-16 pt-5 lg:w-1/2 lg:pt-[30px]">
+              <p className="tag-bleed tex-noise inline-block bg-accent py-[7px] pl-5 pr-2.5 text-[1.1rem] font-bold uppercase leading-[1.1] text-ink md:pl-[30px]">
                 Lokal {lokal.broj} · {lokal.sprat}
               </p>
 
-              <h1 className="px-5 pt-8 md:px-8">
-                <span className="sr-only">{gore.naziv}</span>
-                <GoreMark tex className="text-[clamp(4.5rem,11vw,9.5rem)]" />
-              </h1>
-              <TitleDetail />
-
-              <div className="space-y-1 px-5 pt-8 md:px-8">
-                <p className="font-black uppercase tracking-tight text-bone">{gore.mesto}</p>
-                <p className="text-bone/80">{gore.vreme}</p>
+              <div className="relative">
+                <h1 className="px-5 pb-[30px] pt-5 md:px-[30px] md:pt-[30px]">
+                  <span className="sr-only">{gore.naziv}</span>
+                  <GoreMark tex className="text-[clamp(2.75rem,4.4vw,4.25rem)]" />
+                </h1>
+                <TitleDetail />
+                {/* WHP: bledi kurzivni natpis koji pluta preko linije ispod naslova ("2006–2026") */}
+                <span
+                  aria-hidden="true"
+                  className="pointer-events-none absolute bottom-0 left-[38%] translate-y-[38%] whitespace-nowrap text-[clamp(2rem,3.6vw,3.4rem)] font-light italic leading-none tracking-tight text-bone/[0.13]"
+                >
+                  Sprat iznad
+                </span>
               </div>
 
-              <div className="flex flex-wrap gap-3 px-5 pt-8 md:px-8">
+              <div className="px-5 pt-5 md:px-[30px] md:pt-[30px]">
+                <p className="text-[1.1rem] font-black uppercase leading-tight tracking-tight">{gore.mesto}</p>
+                <p className="text-[1.1rem] leading-tight">{gore.vreme}</p>
+              </div>
+
+              <div className="flex flex-wrap gap-2.5 px-5 pt-5 md:px-[30px] md:pt-[30px]">
                 <a
                   href={site.mapaUrl}
                   target="_blank"
@@ -108,23 +120,23 @@ export default function GorePage() {
                   className={`${btn} border-accent bg-accent text-ink hover:bg-ink hover:text-accent`}
                 >
                   Kako do nas
-                  <ArrowUpRight className="h-3.5 w-3.5" />
+                  <ArrowUpRight className="h-4 w-4" />
                 </a>
                 <a href="/#lokali" className={`${btn} border-bone text-bone hover:bg-bone hover:text-ink`}>
                   Svi lokali
                 </a>
               </div>
 
-              <div className="max-w-xl space-y-5 px-5 pt-10 md:px-8">
-                <p className="font-black uppercase leading-snug tracking-tight text-bone">{gore.podnaslov}</p>
+              <div className="space-y-5 px-5 pt-5 text-[0.9rem] leading-[1.55] md:px-[30px] md:pt-[30px]">
+                <p className="font-bold uppercase">{gore.podnaslov}</p>
                 {gore.pasusi.map((p) => (
-                  <p key={p} className="leading-relaxed text-bone/80">
+                  <p key={p} className="font-medium">
                     {p}
                   </p>
                 ))}
-                <ul className="flex flex-wrap gap-2 pt-2">
+                <ul className="flex flex-wrap gap-2 pt-1">
                   {gore.zanrovi.map((z) => (
-                    <li key={z} className="border border-line px-3 py-1.5 font-mono text-[11px] uppercase tracking-widest text-bone">
+                    <li key={z} className="border-2 border-bone/60 px-3 py-1.5 text-[0.75rem] font-bold uppercase leading-none">
                       {z}
                     </li>
                   ))}
@@ -201,7 +213,7 @@ export default function GorePage() {
                       {l.kratko}
                     </span>
                     <p className="pb-6 pl-5 pt-4 text-[1.7rem] font-black uppercase leading-none tracking-tighter">{l.naziv}</p>
-                    <span className={`${btn} ml-5 mt-auto border-ink px-4 py-3 group-hover:bg-ink group-hover:text-bone`}>
+                    <span className="ml-5 mt-auto inline-flex items-center border-2 border-ink px-4 py-3 text-sm font-bold uppercase leading-none transition-colors duration-300 group-hover:bg-ink group-hover:text-bone">
                       Pogledaj lokal
                     </span>
                   </div>
