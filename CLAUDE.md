@@ -39,6 +39,17 @@ poster uz levu ivicu + detalji (žuta `.tag-bleed` oznaka do ivice ekrana, tekst
 mesto/vreme, dugmad, tekst) → karusel fotki → ritam dana → karusel „Ostali lokali". `components/Carousel.tsx`
 je WHP Slick bez Slicka (scroll-snap, strelice, tačkice, prevlačenje mišem, neaktivni slajdovi na 20 %).
 Isti šablon važi za buduće strane drugih lokala.
+Uz to: ogromna bleda slova u pozadini sa parallaxom (`components/BgLetters.tsx`, WHP bg-flood),
+WHP kartice (svetle, `.tex-noise`, oznaka od ivice kartice), cross-line ispod naslova sekcija,
+„view-all" link sa linijom do ivice ekrana.
+
+**Nav i footer su po WHP-u na celom sajtu** (23.11.2026): ikonica od tačkica koja se pretvara u X,
+žuti panel zdesna sa stavkama koje ulaze redom; footer uvučen 12,5 % sa hatch trakom koja raste,
+znak levo i linkovi sa uglovima desno. `.tex-noise` = fino zrno (alfa 0.22/-0.05, izmereno ~6 % tamnjenja);
+jače zrno je prljalo žutu.
+
+**Izuzetak od „sharp" pravila:** strelice i tačkice karusela i krugovi društvenih mreža su okrugli
+kao na WHP-u (Pavle, 23.11.2026). Sve ostalo ostaje bez zaobljenja. Serif i WHP teget pozadina su odbijeni.
 Pravilo: strana „u stilu" reference = prvo site-teardown reference (postojeći su u `research/`), pa gradnja.
 Nav linkovi su `/#sekcija` da bi radili i sa podstrana.
 

@@ -8,16 +8,20 @@ import { ArrowRight } from "@/components/icons";
   native scroll-snap (swipe na telefonu besplatno) + strelice, tačkice i prevlačenje mišem.
   Slajd koji nije ceo u kadru je na 20 % opacitija; scroller ide do desne ivice ekrana,
   pa sledeći slajd "viri" (WHP: .slick-list { overflow: visible }).
-  Strelice i tačkice su kockaste — sajt je "sharp", bez zaobljenja.
+  Strelice i tačkice su okrugle kao na WHP-u (izuzetak od "sharp" pravila, odluka 23.11.2026).
+  `arrowsSide`: strelice desno na sredini visine, jedna iznad druge (WHP .image-carousel);
+  inače dole desno pored tačkica (WHP .event-carousel).
 */
 export default function Carousel({
   children,
   label,
   slideClassName = "",
+  arrowsSide = false,
 }: {
   children: React.ReactNode;
   label: string;
   slideClassName?: string;
+  arrowsSide?: boolean;
 }) {
   const slides = Children.toArray(children);
   const scroller = useRef<HTMLDivElement>(null);
@@ -115,39 +119,54 @@ export default function Carousel({
 
   const first = Math.max(0, visible.indexOf(true));
   const arrow =
-    "flex h-9 w-9 items-center justify-center border-2 border-accent bg-ink/80 text-accent transition-[opacity,background-color,color] duration-300 hover:bg-accent hover:text-ink disabled:pointer-events-none disabled:opacity-20";
+    "flex h-9 w-9 items-center justify-center rounded-full border-2 border-accent bg-ink/80 text-accent transition-[opacity,background-color,color] duration-300 hover:bg-accent hover:text-ink disabled:pointer-events-none disabled:opacity-20";
+  const arrows = (
+    <>
+      <button type="button" onClick={() => step(-1)} disabled={edge.start} aria-label="Prethodno" className={arrow}>
+        <ArrowRight className="h-4 w-4 rotate-180" />
+      </button>
+      <button type="button" onClick={() => step(1)} disabled={edge.end} aria-label="Sledeće" className={arrow}>
+        <ArrowRight className="h-4 w-4" />
+      </button>
+    </>
+  );
 
   return (
     <div role="region" aria-roledescription="carousel" aria-label={label} className="relative">
-      <div
-        ref={scroller}
-        onScroll={updateEdges}
-        onPointerDown={onPointerDown}
-        onPointerMove={onPointerMove}
-        onPointerUp={endDrag}
-        onPointerCancel={endDrag}
-        onClickCapture={onClickCapture}
-        onDragStart={(e) => e.preventDefault()}
-        onKeyDown={(e) => {
-          if (e.key === "ArrowRight") step(1);
-          if (e.key === "ArrowLeft") step(-1);
-        }}
-        tabIndex={0}
-        className="no-scrollbar mr-[calc(50%-50vw)] flex snap-x snap-mandatory gap-3 overflow-x-auto pr-5 outline-none select-none md:pr-8 [&_img]:pointer-events-none"
-      >
-        {slides.map((slide, i) => (
-          <div
-            key={i}
-            role="group"
-            aria-roledescription="slide"
-            aria-label={`${i + 1} / ${slides.length}`}
-            className={`shrink-0 snap-start transition-opacity duration-[600ms] ease-out ${
-              visible[i] ? "opacity-100" : "opacity-20"
-            } ${slideClassName}`}
-          >
-            {slide}
-          </div>
-        ))}
+      <div className="relative">
+        <div
+          ref={scroller}
+          onScroll={updateEdges}
+          onPointerDown={onPointerDown}
+          onPointerMove={onPointerMove}
+          onPointerUp={endDrag}
+          onPointerCancel={endDrag}
+          onClickCapture={onClickCapture}
+          onDragStart={(e) => e.preventDefault()}
+          onKeyDown={(e) => {
+            if (e.key === "ArrowRight") step(1);
+            if (e.key === "ArrowLeft") step(-1);
+          }}
+          tabIndex={0}
+          className="no-scrollbar mr-[calc(50%-50vw)] flex snap-x snap-mandatory gap-3 overflow-x-auto pr-5 outline-none select-none md:pr-8 [&_img]:pointer-events-none"
+        >
+          {slides.map((slide, i) => (
+            <div
+              key={i}
+              role="group"
+              aria-roledescription="slide"
+              aria-label={`${i + 1} / ${slides.length}`}
+              className={`shrink-0 snap-start transition-opacity duration-[600ms] ease-out ${
+                visible[i] ? "opacity-100" : "opacity-20"
+              } ${slideClassName}`}
+            >
+              {slide}
+            </div>
+          ))}
+        </div>
+        {arrowsSide && (
+          <div className="absolute right-0 top-1/2 z-10 flex -translate-y-1/2 flex-col gap-2 max-sm:hidden">{arrows}</div>
+        )}
       </div>
 
       <div className="mt-4 flex items-center justify-between gap-4">
@@ -159,21 +178,15 @@ export default function Carousel({
                 onClick={() => goTo(i)}
                 aria-label={`Idi na slajd ${i + 1}`}
                 aria-current={i === first ? "true" : undefined}
-                className={`block h-3 w-3 border-2 border-bone transition-colors duration-300 ${
+                className={`block h-3.5 w-3.5 rounded-full border-2 border-bone transition-colors duration-300 max-sm:h-3 max-sm:w-3 ${
                   i === first ? "bg-bone" : "bg-transparent hover:bg-bone/30"
                 }`}
               />
             </li>
           ))}
         </ol>
-        <div className="flex gap-2">
-          <button type="button" onClick={() => step(-1)} disabled={edge.start} aria-label="Prethodno" className={arrow}>
-            <ArrowRight className="h-4 w-4 rotate-180" />
-          </button>
-          <button type="button" onClick={() => step(1)} disabled={edge.end} aria-label="Sledeće" className={arrow}>
-            <ArrowRight className="h-4 w-4" />
-          </button>
-        </div>
+        {/* Bočne strelice se na telefonu sele dole, pored tačkica */}
+        <div className={`flex gap-2 ${arrowsSide ? "sm:hidden" : ""}`}>{arrows}</div>
       </div>
     </div>
   );

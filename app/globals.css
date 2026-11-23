@@ -230,6 +230,16 @@
     transparent 8px
   );
 }
+/* Tamna varijanta za žuti meni (WHP dark-hatch ispod liste) */
+.hatch-ink {
+  background-image: repeating-linear-gradient(
+    -45deg,
+    var(--color-ink) 0,
+    var(--color-ink) 2px,
+    transparent 2px,
+    transparent 9px
+  );
+}
 
 /* --- Suptilna mreža (grid) preko hero pozadine --- */
 .grid-lines {
@@ -428,11 +438,66 @@
   height: 100%;
   background: inherit;
 }
+/* WHP overlay-noise na punim površinama (žute oznake, meni, svetle kartice).
+   Boju daje bg-* klasa; ovo dodaje samo tamna zrnca preko nje. */
+.tex-noise {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.22 -0.05'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 200px 200px;
+}
 .no-scrollbar {
   scrollbar-width: none;
 }
 .no-scrollbar::-webkit-scrollbar {
   display: none;
+}
+
+/* --- WHP meni: panel zdesna, stavke ulaze redom, hatch linija raste --- */
+@keyframes menu-slide {
+  from {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes menu-item {
+  from {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes grow-x {
+  from {
+    opacity: 0;
+    width: 0;
+  }
+  to {
+    opacity: 1;
+    width: 100%;
+  }
+}
+.menu-open .menu-panel {
+  animation: menu-slide 550ms cubic-bezier(0.72, 0, 0.19, 1) both;
+}
+.menu-open .menu-item {
+  animation: menu-item 400ms ease both;
+}
+.menu-open .menu-hatch {
+  animation: grow-x 900ms ease 400ms both;
+}
+/* Footer hatch traka raste kad footer uđe u kadar (WHP fslideGrow 1200ms) */
+.footer-hatch {
+  width: 0;
+  opacity: 0;
+}
+.is-in .footer-hatch {
+  animation: grow-x 1200ms ease both;
 }
 
 /* --- Multi-speed parallax na globalnim overlay slojevima --- */
@@ -494,6 +559,16 @@
   .fx-dust,
   .fx-stain {
     animation: none;
+  }
+  .menu-open .menu-panel,
+  .menu-open .menu-item {
+    animation: none;
+  }
+  .menu-open .menu-hatch,
+  .is-in .footer-hatch {
+    animation: none;
+    opacity: 1;
+    width: 100%;
   }
   .img-load,
   .img-load.img-in,

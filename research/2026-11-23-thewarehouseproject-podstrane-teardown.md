@@ -98,3 +98,21 @@ Ispod: „View full calendar" link sa linijom.
 | „Other upcoming events" | „Ostali lokali" — 6 kartica, klik vodi na lokal na početnoj |
 
 Odstupanja: Archivo umesto Ceraph serifa (klijentov font), žuta umesto lime, bez Slicka (native scroll-snap + mala JS kontrola).
+
+---
+
+## Drugi krug (23.11.2026) — šta je dodato posle Pavlove primedbe da je uzeto premalo
+
+| WHP | Implementacija |
+|---|---|
+| `.detail-layers .dl-02` bg-flood (ogromna slova, opacity .1, `scroll-shift-two` 0.19) | `BgLetters` — GoreMark u 34vw, opacity .045 (naša baza je tamnija), translateY(0.19 · scrollY) |
+| `overlay-noise.png` na lime površinama i karticama | `.tex-noise` (feTurbulence data-URI, alfa 0.22/-0.05) |
+| `.event-card` (svetla tekstura, `.venue` sa crticom, `span.date` od ivice kartice, `bordered-link.dark`) | kartice „Ostali lokali" |
+| `cross-line-detail-top-left.png` ispod `.sectional-title` | horizontalna linija 144px od -40px + vertikalna 26rem niz gutter |
+| `title-detail-base.png` (vertikala bleđa gore, polukrug „D" na spoju) | `TitleDetail` sa gradijentom i `rounded-r-full` polukrugom |
+| `.view-all a:after` (75vw linija) | link „Cela kuća na mapi" |
+| `.image-carousel .slick-prev/next` desno na sredini | `Carousel arrowsSide` (na telefonu dole) |
+| Okrugle strelice/tačkice | okrugle (izuzetak od „sharp", Pavle) |
+| `menu-animatics` (GSAP: 8 tačaka nestaje, centar → „+", rotacija 45°) | `MenuDots` — CSS tranzicije, scaleX/scaleY 6.5, rotate 45° |
+| `.main-menu` 500px zdesna, `menuSlide` 550ms, `listMenuSlide` 375+50ms, `slideGrow` hatch | `Nav` panel + `.menu-open` animacije |
+| `footer .lower-footer` (12.5 % uvučen, `fslideGrow` hatch 1200ms, emblem, `square-edge` uglovi, dotted linkovi, krugovi mreža) | `Footer` |
